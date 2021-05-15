@@ -2395,12 +2395,19 @@ SOKOL_API_IMPL bool simgui_handle_event(const sapp_event* ev) {
                 }
             }
             /* on web platform, don't forward Ctrl-X, Ctrl-V to the browser */
+
+            // NOTE(dr): Removed as this behaviour prevents copying other text on
+            // the same page. Should probably only be consuming the event if
+            // there's highlighted text to cut/copy anyways.
+            #if false
             if (_simgui_is_ctrl(ev->modifiers) && (ev->key_code == SAPP_KEYCODE_X)) {
                 sapp_consume_event();
             }
             if (_simgui_is_ctrl(ev->modifiers) && (ev->key_code == SAPP_KEYCODE_C)) {
                 sapp_consume_event();
             }
+            #endif
+
             // it's ok to add ImGuiKey_None key events
             _simgui_add_sapp_key_event(io, ev->key_code, true);
             break;
@@ -2411,12 +2418,19 @@ SOKOL_API_IMPL bool simgui_handle_event(const sapp_event* ev) {
                 break;
             }
             /* on web platform, don't forward Ctrl-X, Ctrl-V to the browser */
+
+            // NOTE(dr): Removed as this behaviour prevents copying other text on
+            // the same page. Should probably only be consuming the event if
+            // there's highlighted text to cut/copy anyways.
+            #if false
             if (_simgui_is_ctrl(ev->modifiers) && (ev->key_code == SAPP_KEYCODE_X)) {
                 sapp_consume_event();
             }
             if (_simgui_is_ctrl(ev->modifiers) && (ev->key_code == SAPP_KEYCODE_C)) {
                 sapp_consume_event();
             }
+            #endif
+            
             // it's ok to add ImGuiKey_None key events
             _simgui_add_sapp_key_event(io, ev->key_code, false);
             break;
