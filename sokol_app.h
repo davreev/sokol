@@ -4742,6 +4742,9 @@ EM_JS(void, sapp_js_remove_dragndrop_listeners, (const char* canvas_name_cstr), 
     the request will be ignored by the browser
 */
 _SOKOL_PRIVATE void _sapp_emsc_update_keyboard_state(void) {
+    // NOTE(dr): This implementation isn't well suited for embedding apps in a
+    // webpage as it assumes the canvas is the only element in the body.
+    #if false
     if (_sapp.emsc.wants_show_keyboard) {
         /* create input text field on demand */
         if (!_sapp.emsc.textfield_created) {
@@ -4761,6 +4764,7 @@ _SOKOL_PRIVATE void _sapp_emsc_update_keyboard_state(void) {
             sapp_js_unfocus_textfield();
         }
     }
+    #endif
 }
 
 /* actually showing the onscreen keyboard must be initiated from a JS
