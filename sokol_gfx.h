@@ -3166,6 +3166,14 @@ inline int sg_append_buffer(sg_buffer buf_id, const sg_range& data) { return sg_
     #define GL_LUMINANCE 0x1909
     #endif
 
+    // DEBUG(dr)
+    #ifndef GL_CLIP_PLANE0
+    #define GL_CLIP_PLANE0 0x3000
+    #endif
+    #ifndef GL_CLIP_DISTANCE0
+    #define GL_CLIP_DISTANCE0 GL_CLIP_PLANE0
+    #endif
+
     #ifdef SOKOL_GLES2
         #ifdef GL_ANGLE_instanced_arrays
             #define _SOKOL_GL_INSTANCING_ENABLED
@@ -6439,6 +6447,7 @@ _SOKOL_PRIVATE void _sg_gl_reset_state_cache(void) {
         _sg.gl.cache.stencil.back.depth_fail_op = SG_STENCILOP_KEEP;
         _sg.gl.cache.stencil.back.pass_op = SG_STENCILOP_KEEP;
         glEnable(GL_DEPTH_TEST);
+        // glEnable(GL_CLIP_DISTANCE0); // Default enable clip distances
         glDepthFunc(GL_ALWAYS);
         glDepthMask(GL_FALSE);
         glDisable(GL_STENCIL_TEST);
